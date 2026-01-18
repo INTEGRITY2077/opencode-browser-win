@@ -7,9 +7,14 @@ const os = require("os");
 const path = require("path");
 
 const BASE_DIR = path.join(os.homedir(), ".opencode-browser");
-const SOCKET_PATH = path.join(BASE_DIR, "broker.sock");
+const isWin = process.platform === "win32";
+const SOCKET_PATH = isWin
+  ? "\\\\.\\pipe\\opencode-browser-sock"
+  : path.join(BASE_DIR, "broker.sock");
 
-fs.mkdirSync(BASE_DIR, { recursive: true });
+if (!isWin) {
+  fs.mkdirSync(BASE_DIR, { recursive: true });
+}
 
 const DEFAULT_LEASE_TTL_MS = 5 * 60 * 1000;
 const LEASE_TTL_MS = (() => {
@@ -310,10 +315,10 @@ function handleClientMessage(socket, client, msg) {
           const state = sessionId ? sessionState.get(sessionId) : null;
           const sessionInfo = state
             ? {
-                sessionId,
-                defaultTabId: state.defaultTabId,
-                lastSeenAt: new Date(state.lastSeenAt).toISOString(),
-              }
+              sessionId,
+              defaultTabId: state.defaultTabId,
+              lastSeenAt: new Date(state.lastSeenAt).toISOString(),
+            }
             : null;
           replyOk({
             broker: true,
@@ -381,7 +386,7 @@ function handleClientMessage(socket, client, msg) {
 
 function start() {
   try {
-    if (fs.existsSync(SOCKET_PATH)) fs.unlinkSync(SOCKET_PATH);
+    if (!isWin && fs.existsSync(SOCKET_PATH)) fs.unlinkSync(SOCKET_PATH);
   } catch {
     // ignore
   }
@@ -418,9 +423,11 @@ function start() {
 
   server.listen(SOCKET_PATH, () => {
     // Make socket group-readable; ignore errors
-    try {
-      fs.chmodSync(SOCKET_PATH, 0o600);
-    } catch {}
+    if (!isWin) {
+      try {
+        fs.chmodSync(SOCKET_PATH, 0o600);
+      } catch { }
+    }
     console.error(`[browser-broker] listening on ${SOCKET_PATH}`);
   });
 

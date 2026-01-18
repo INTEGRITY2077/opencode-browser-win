@@ -13042,8 +13042,11 @@ function getPackageVersion() {
 }
 var { schema } = tool;
 var BASE_DIR = join2(homedir(), ".opencode-browser");
-var SOCKET_PATH = join2(BASE_DIR, "broker.sock");
-mkdirSync(BASE_DIR, { recursive: true });
+var isWin = process.platform === "win32";
+var SOCKET_PATH = isWin ? "\\\\.\\pipe\\opencode-browser-sock" : join2(BASE_DIR, "broker.sock");
+if (!isWin) {
+  mkdirSync(BASE_DIR, { recursive: true });
+}
 function createJsonLineParser2(onMessage) {
   let buffer = "";
   return (chunk) => {
