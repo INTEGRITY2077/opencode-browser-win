@@ -34,7 +34,7 @@ npm install -g git+https://github.com/INTEGRITY2077/opencode-browser-win.git
 Run the following command in your terminal (PowerShell or CMD):
 
 ```powershell
-npx @integrity2077/opencode-browser-win install
+opencode-browser install
 ```
 
 The installer will:
@@ -43,7 +43,16 @@ The installer will:
 3.  **Automatically register** the Native Messaging Host in the Windows Registry (`HKCU\Software\Google\Chrome\NativeMessagingHosts`)
 4.  Update your `opencode.json` to include the plugin
 
-### 3. Load Chrome Extension
+### 3. (Optional) Install Headless Agent
+
+If you need the headless browser agent features:
+
+```powershell
+opencode-browser agent-install
+```
+*Note: This downloads the agent binaries on demand.*
+
+### 4. Load Chrome Extension
 
 1.  Open `chrome://extensions`
 2.  Enable **Developer mode** (top right)

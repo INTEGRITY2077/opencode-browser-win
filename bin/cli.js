@@ -409,8 +409,8 @@ async function install() {
     require('fs').cpSync(srcExtensionDir, EXTENSION_DIR, { recursive: true });
     success(`Extension files copied to: ${EXTENSION_DIR}`);
   } catch (e) {
-    // If cpSync missing (old node), try logical copy
-    error("Node version too old? Need cpSync. Proceeding anyway.");
+    error(`Failed to copy extension files: ${e.message}`);
+    // Attempt fallback or just fail? For now, log it.
   }
 
   header("Step 3: Load & Pin Extension");
