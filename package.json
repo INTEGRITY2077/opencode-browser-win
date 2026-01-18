@@ -40,9 +40,6 @@
     "@opencode-ai/plugin": "*"
   },
   "dependencies": {},
-  "optionalDependencies": {
-    "agent-browser": "^0.4.0"
-  },
   "devDependencies": {
     "@opencode-ai/plugin": "*",
     "bun-types": "*"
