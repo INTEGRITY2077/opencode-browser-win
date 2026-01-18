@@ -13,6 +13,12 @@ This version includes specific optimizations for Windows:
 - **Batch Wrapper:** Uses `.bat` wrappers instead of `.sh` scripts.
 - **Universal Installer:** Detects OS (Win/Mac/Linux) and applies the correct installation method automatically.
 
+## Prerequisites
+
+- **Node.js**: v18 or higher (This plugin is pure JavaScript. **No Python required**).
+- **Browser**: Google Chrome, Brave, Edge, or Arc.
+- **OpenCode CLI**: The main agent to run this plugin.
+
 ## Installation
 
 ### 1. Install via NPM
