@@ -498,10 +498,52 @@ After loading, ${color("bright", "pin the extension")}.
 
   header("Step 7: Configure OpenCode");
   const desiredPlugin = "@integrity2077/opencode-browser-win";
-  success(`Since this plugin is private and not on NPM, you must install it manually:`);
-  log(`  1. cd ~/.config/opencode (or %USERPROFILE%\\.config\\opencode on Windows)`);
-  log(`  2. npm install git+https://github.com/INTEGRITY2077/opencode-browser-win.git`);
-  log(`  3. Add "${desiredPlugin}" to your opencode.json plugin array.`);
+  const opencodeConfigDir = join(homedir(), ".config", "opencode");
+  const opencodeConfigFile = join(opencodeConfigDir, "opencode.json");
+
+  if (existsSync(opencodeConfigDir)) {
+    try {
+      success(`Installing dependency in OpenCode config dir...`);
+      execSync("npm install git+https://github.com/INTEGRITY2077/opencode-browser-win.git", {
+        cwd: opencodeConfigDir,
+        stdio: 'inherit'
+      });
+
+      let config = {};
+      if (existsSync(opencodeConfigFile)) {
+        try {
+          config = JSON.parse(readFileSync(opencodeConfigFile, "utf-8"));
+        } catch { }
+      }
+
+      // Ensure 'plugin' is an array (handle legacy string case)
+      let plugins = [];
+      if (Array.isArray(config.plugin)) {
+        plugins = config.plugin;
+      } else if (typeof config.plugin === "string") {
+        plugins = [config.plugin];
+      }
+
+      if (!plugins.includes(desiredPlugin)) {
+        plugins.push(desiredPlugin);
+        config.plugin = plugins;
+        // Ensure schema
+        if (!config.$schema) config.$schema = "https://opencode.ai/config.json";
+
+        writeFileSync(opencodeConfigFile, JSON.stringify(config, null, 4));
+        success(`Added "${desiredPlugin}" to opencode.json.`);
+      } else {
+        success(`Plugin already configured in opencode.json.`);
+      }
+    } catch (e) {
+      error(`Automatic config failed: ${e.message}`);
+      warn(`Please manually install: npm install git+... in ~/.config/opencode`);
+      warn(`And add "${desiredPlugin}" to opencode.json`);
+    }
+  } else {
+    warn(`OpenCode config directory not found at: ${opencodeConfigDir}`);
+    warn(`Please manually configure step 7.`);
+  }
 
   header("Installation Complete!");
 }
