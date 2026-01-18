@@ -48,9 +48,6 @@
   },
   "scripts": {
     "build": "bun build src/plugin.ts --target=node --outfile=dist/plugin.js",
-    "install": "node bin/cli.js install",
-    "uninstall": "node bin/cli.js uninstall",
-    "status": "node bin/cli.js status",
     "tool-test": "bun bin/tool-test.ts"
   }
 }
