@@ -501,6 +501,16 @@ After loading, ${color("bright", "pin the extension")}.
   const opencodeConfigDir = join(homedir(), ".config", "opencode");
   const opencodeConfigFile = join(opencodeConfigDir, "opencode.json");
 
+  // Ensure directory exists
+  if (!existsSync(opencodeConfigDir)) {
+    try {
+      mkdirSync(opencodeConfigDir, { recursive: true });
+      success(`Created OpenCode config directory: ${opencodeConfigDir}`);
+    } catch (e) {
+      warn(`Could not create config dir: ${e.message}`);
+    }
+  }
+
   if (existsSync(opencodeConfigDir)) {
     try {
       success(`Installing dependency in OpenCode config dir...`);
