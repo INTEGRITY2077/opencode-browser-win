@@ -36,23 +36,19 @@ Run the following command in your terminal (PowerShell or CMD):
 ```powershell
 opencode-browser install
 ```
-
+**Important:** Since this plugin is private/unpublished, you must manually install the dependency in your OpenCode config directory as instructed by the installer:
+```powershell
+cd $env:USERPROFILE\.config\opencode
+npm install git+https://github.com/INTEGRITY2077/opencode-browser-win.git
+```
+Then add `"@integrity2077/opencode-browser-win"` to your `opencode.json`.
 The installer will:
 1.  Copy extension files to `%USERPROFILE%\.opencode-browser\extension\`
 2.  Walk you through loading + pinning the extension in `chrome://extensions`
 3.  **Automatically register** the Native Messaging Host in the Windows Registry (`HKCU\Software\Google\Chrome\NativeMessagingHosts`)
-4.  Update your `opencode.json` to include the plugin
+4.  Update your OpenCode config (`~/.config/opencode/opencode.json`) to include the plugin (key: `"plugin"` array)
 
-### 3. (Optional) Install Headless Agent
-
-If you need the headless browser agent features:
-
-```powershell
-opencode-browser agent-install
-```
-*Note: This downloads the agent binaries on demand.*
-
-### 4. Load Chrome Extension
+### 3. Load Chrome Extension
 
 1.  Open `chrome://extensions`
 2.  Enable **Developer mode** (top right)
@@ -75,7 +71,7 @@ opencode run "browser_navigate('https://google.com')"
 To remove the registry keys and files:
 
 ```powershell
-npx @integrity2077/opencode-browser-win uninstall
+opencode-browser uninstall
 ```
 
 This will cleanly remove:
