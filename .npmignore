@@ -1,0 +1,4 @@
+node_modules
+.opencode-browser
+.DS_Store
+debug_agent

@@ -40,12 +40,7 @@
     "@opencode-ai/plugin": "*"
   },
   "dependencies": {},
-  "devDependencies": {
-    "@opencode-ai/plugin": "*",
-    "bun-types": "*"
-  },
   "scripts": {
-    "build": "bun build src/plugin.ts --target=node --outfile=dist/plugin.js",
-    "tool-test": "bun bin/tool-test.ts"
+    "tool-test": "node bin/tool-test.js"
   }
 }
