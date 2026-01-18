@@ -497,8 +497,11 @@ After loading, ${color("bright", "pin the extension")}.
   }
 
   header("Step 7: Configure OpenCode");
-  const desiredPlugin = "git+https://github.com/INTEGRITY2077/opencode-browser-win.git";
-  success(`Please manually add "${desiredPlugin}" to your opencode.json plugin array.`);
+  const desiredPlugin = "@integrity2077/opencode-browser-win";
+  success(`Since this plugin is private and not on NPM, you must install it manually:`);
+  log(`  1. cd ~/.config/opencode (or %USERPROFILE%\\.config\\opencode on Windows)`);
+  log(`  2. npm install git+https://github.com/INTEGRITY2077/opencode-browser-win.git`);
+  log(`  3. Add "${desiredPlugin}" to your opencode.json plugin array.`);
 
   header("Installation Complete!");
 }
