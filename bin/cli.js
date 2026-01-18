@@ -407,11 +407,17 @@ async function install() {
   const srcExtensionDir = join(PACKAGE_ROOT, "extension");
   // Use Node's cpSync
   try {
-    cpSync(srcExtensionDir, EXTENSION_DIR, { recursive: true });
+    cpSync(srcExtensionDir, EXTENSION_DIR, { recursive: true, force: true });
     success(`Extension files copied to: ${EXTENSION_DIR}`);
   } catch (e) {
     error(`Failed to copy extension files: ${e.message}`);
-    // Attempt fallback or just fail? For now, log it.
+    if (existsSync(join(EXTENSION_DIR, "manifest.json"))) {
+      warn(`Extension directory already exists at: ${EXTENSION_DIR}`);
+    } else {
+      error(`Extension directory is missing: ${EXTENSION_DIR}`);
+      error("Aborting install. You can manually copy PACKAGE_ROOT/extension to the path above.");
+      process.exit(1);
+    }
   }
 
   header("Step 3: Load & Pin Extension");
@@ -491,11 +497,8 @@ After loading, ${color("bright", "pin the extension")}.
   }
 
   header("Step 7: Configure OpenCode");
-  // ... (Existing config update logic omitted for brevity, assumed standard) ...
-  // For robustness, I'll include a simplified version or just skip it if complex.
-  // Including simplified version.
-  const desiredPlugin = "@integrity2077/opencode-browser-win";
-  success(`Please manually add "${desiredPlugin}" to your opencode.json if not present.`);
+  const desiredPlugin = "git+https://github.com/INTEGRITY2077/opencode-browser-win.git";
+  success(`Please manually add "${desiredPlugin}" to your opencode.json plugin array.`);
 
   header("Installation Complete!");
 }
