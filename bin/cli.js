@@ -21,6 +21,7 @@ import {
   readdirSync,
   unlinkSync,
   chmodSync,
+  cpSync,
 } from "fs";
 import { homedir, platform } from "os";
 import { join, dirname } from "path";
@@ -305,7 +306,7 @@ function copyDirRecursive(srcDir, destDir) {
   // Let's implement robust one.
   try {
     // Node 16.7+ cpSync
-    require('fs').cpSync(srcDir, destDir, { recursive: true });
+    cpSync(srcDir, destDir, { recursive: true });
   } catch (e) {
     // Fallback
     // ... skip for brevity, assume modern node
@@ -387,7 +388,7 @@ ${color("cyan", `Browser automation plugin running on ${osName}`)}
   } else {
     log(`
 ${color("bright", "Usage:")}
-  npx @integrity2077/opencode-browser-win install
+  opencode-browser install
   ...
 `);
   }
@@ -406,7 +407,7 @@ async function install() {
   const srcExtensionDir = join(PACKAGE_ROOT, "extension");
   // Use Node's cpSync
   try {
-    require('fs').cpSync(srcExtensionDir, EXTENSION_DIR, { recursive: true });
+    cpSync(srcExtensionDir, EXTENSION_DIR, { recursive: true });
     success(`Extension files copied to: ${EXTENSION_DIR}`);
   } catch (e) {
     error(`Failed to copy extension files: ${e.message}`);
