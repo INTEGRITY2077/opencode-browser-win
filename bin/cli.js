@@ -50,7 +50,9 @@ const NATIVE_HOST_WRAPPER = isWin
 const CONFIG_DST = join(BASE_DIR, "config.json");
 // Windows: named pipe or port? Windows supports unix sockets in newer builds but not consistently.
 // Broker usually binds to a file path. On Windows it works if path is handled right.
-const BROKER_SOCKET = join(BASE_DIR, "broker.sock");
+const BROKER_SOCKET = isWin
+  ? "\\\\.\\pipe\\opencode-browser-sock"
+  : join(BASE_DIR, "broker.sock");
 
 const NATIVE_HOST_NAME = "com.opencode.browser_automation";
 
@@ -591,6 +593,16 @@ async function status() {
     } catch {
       error("Registry Key: Missing");
     }
+  }
+
+  log("\nChecking Broker Connection...");
+  const res = await getBrokerStatus();
+  if (res.ok) {
+    success("Broker Connection: OK");
+    log(JSON.stringify(res.data, null, 2));
+  } else {
+    error(`Broker Connection: Failed (${res.error})`);
+    warn("Ensure Chrome is running and the extension is loaded.");
   }
 }
 

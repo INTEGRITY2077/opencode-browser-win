@@ -11,10 +11,15 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const BASE_DIR = path.join(os.homedir(), ".opencode-browser");
-const SOCKET_PATH = path.join(BASE_DIR, "broker.sock");
+const isWin = process.platform === "win32";
+const SOCKET_PATH = isWin
+  ? "\\\\.\\pipe\\opencode-browser-sock"
+  : path.join(BASE_DIR, "broker.sock");
 const BROKER_PATH = path.join(BASE_DIR, "broker.cjs");
 
-fs.mkdirSync(BASE_DIR, { recursive: true });
+if (!isWin) {
+  fs.mkdirSync(BASE_DIR, { recursive: true });
+}
 
 function createJsonLineParser(onMessage) {
   let buffer = "";
@@ -66,7 +71,7 @@ async function ensureBroker() {
       await new Promise((r) => setTimeout(r, 100));
       try {
         return await connectToBroker();
-      } catch {}
+      } catch { }
     }
     throw new Error("Could not connect to broker");
   }
@@ -130,7 +135,7 @@ function onStdinData(chunk, onMessage) {
   process.stdin.on("end", () => {
     try {
       broker.end();
-    } catch {}
+    } catch { }
     process.exit(0);
   });
 })();
