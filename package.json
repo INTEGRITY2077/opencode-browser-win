@@ -1,0 +1,56 @@
+{
+  "name": "@integrity2077/opencode-browser-win",
+  "version": "4.5.1",
+  "description": "Browser automation plugin for OpenCode (native messaging + per-tab ownership).",
+  "type": "module",
+  "bin": {
+    "opencode-browser": "bin/cli.js"
+  },
+  "main": "./dist/plugin.js",
+  "exports": {
+    ".": "./dist/plugin.js",
+    "./plugin": "./dist/plugin.js"
+  },
+  "files": [
+    ".opencode",
+    "bin",
+    "dist",
+    "extension",
+    "README.md"
+  ],
+  "keywords": [
+    "opencode",
+    "browser",
+    "automation",
+    "chrome",
+    "plugin",
+    "native-messaging"
+  ],
+  "author": "INTEGRITY2077",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INTEGRITY2077/opencode-browser-win.git"
+  },
+  "bugs": {
+    "url": "https://github.com/different-ai/opencode-browser/issues"
+  },
+  "homepage": "https://github.com/different-ai/opencode-browser#readme",
+  "peerDependencies": {
+    "@opencode-ai/plugin": "*"
+  },
+  "dependencies": {
+    "agent-browser": "^0.4.0"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "*",
+    "bun-types": "*"
+  },
+  "scripts": {
+    "build": "bun build src/plugin.ts --target=node --outfile=dist/plugin.js",
+    "install": "node bin/cli.js install",
+    "uninstall": "node bin/cli.js uninstall",
+    "status": "node bin/cli.js status",
+    "tool-test": "bun bin/tool-test.ts"
+  }
+}
