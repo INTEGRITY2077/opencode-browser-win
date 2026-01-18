@@ -640,11 +640,11 @@ function assertEqual(val) {
 function assertNotEqual(val) {
   return val;
 }
-function assertIs(_arg) {}
+function assertIs(_arg) { }
 function assertNever(_x) {
   throw new Error;
 }
-function assert(_) {}
+function assert(_) { }
 function getEnumValues(entries) {
   const numericValues = Object.values(entries).filter((v) => typeof v === "number");
   const values = Object.entries(entries).filter(([k, _]) => numericValues.indexOf(+k) === -1).map(([_, v]) => v);
@@ -748,7 +748,7 @@ function promiseAllObject(promisesObj) {
   const promises = keys.map((key) => promisesObj[key]);
   return Promise.all(promises).then((results) => {
     const resolvedObj = {};
-    for (let i = 0;i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
       resolvedObj[keys[i]] = results[i];
     }
     return resolvedObj;
@@ -757,7 +757,7 @@ function promiseAllObject(promisesObj) {
 function randomString(length = 10) {
   const chars = "abcdefghijklmnopqrstuvwxyz";
   let str = "";
-  for (let i = 0;i < length; i++) {
+  for (let i = 0; i < length; i++) {
     str += chars[Math.floor(Math.random() * chars.length)];
   }
   return str;
@@ -765,7 +765,7 @@ function randomString(length = 10) {
 function esc(str) {
   return JSON.stringify(str);
 }
-var captureStackTrace = "captureStackTrace" in Error ? Error.captureStackTrace : (..._args) => {};
+var captureStackTrace = "captureStackTrace" in Error ? Error.captureStackTrace : (..._args) => { };
 function isObject(data) {
   return typeof data === "object" && data !== null && !Array.isArray(data);
 }
@@ -1093,7 +1093,7 @@ function required(Class, schema, mask) {
 function aborted(x, startIndex = 0) {
   if (x.aborted === true)
     return true;
-  for (let i = startIndex;i < x.issues.length; i++) {
+  for (let i = startIndex; i < x.issues.length; i++) {
     if (x.issues[i]?.continue !== true) {
       return true;
     }
@@ -1160,14 +1160,14 @@ function cleanEnum(obj) {
 function base64ToUint8Array(base64) {
   const binaryString = atob(base64);
   const bytes = new Uint8Array(binaryString.length);
-  for (let i = 0;i < binaryString.length; i++) {
+  for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
   return bytes;
 }
 function uint8ArrayToBase64(bytes) {
   let binaryString = "";
-  for (let i = 0;i < bytes.length; i++) {
+  for (let i = 0; i < bytes.length; i++) {
     binaryString += String.fromCharCode(bytes[i]);
   }
   return btoa(binaryString);
@@ -1186,7 +1186,7 @@ function hexToUint8Array(hex) {
     throw new Error("Invalid hex string length");
   }
   const bytes = new Uint8Array(cleanHex.length / 2);
-  for (let i = 0;i < cleanHex.length; i += 2) {
+  for (let i = 0; i < cleanHex.length; i += 2) {
     bytes[i / 2] = Number.parseInt(cleanHex.slice(i, i + 2), 16);
   }
   return bytes;
@@ -1196,7 +1196,7 @@ function uint8ArrayToHex(bytes) {
 }
 
 class Class {
-  constructor(..._args) {}
+  constructor(..._args) { }
 }
 
 // node_modules/@opencode-ai/plugin/node_modules/zod/v4/core/errors.js
@@ -1232,7 +1232,7 @@ function flattenError(error, mapper = (issue2) => issue2.message) {
   return { formErrors, fieldErrors };
 }
 function formatError(error, _mapper) {
-  const mapper = _mapper || function(issue2) {
+  const mapper = _mapper || function (issue2) {
     return issue2.message;
   };
   const fieldErrors = { _errors: [] };
@@ -1268,7 +1268,7 @@ function formatError(error, _mapper) {
   return fieldErrors;
 }
 function treeifyError(error, _mapper) {
-  const mapper = _mapper || function(issue2) {
+  const mapper = _mapper || function (issue2) {
     return issue2.message;
   };
   const result = { errors: [] };
@@ -1981,7 +1981,7 @@ var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat"
       });
     });
   else
-    (_b = inst._zod).check ?? (_b.check = () => {});
+    (_b = inst._zod).check ?? (_b.check = () => { });
 });
 var $ZodCheckRegex = /* @__PURE__ */ $constructor("$ZodCheckRegex", (inst, def) => {
   $ZodCheckStringFormat.init(inst, def);
@@ -2284,7 +2284,7 @@ var $ZodString = /* @__PURE__ */ $constructor("$ZodString", (inst, def) => {
     if (def.coerce)
       try {
         payload.value = String(payload.value);
-      } catch (_2) {}
+      } catch (_2) { }
     if (typeof payload.value === "string")
       return payload;
     payload.issues.push({
@@ -2598,7 +2598,7 @@ var $ZodNumber = /* @__PURE__ */ $constructor("$ZodNumber", (inst, def) => {
     if (def.coerce)
       try {
         payload.value = Number(payload.value);
-      } catch (_) {}
+      } catch (_) { }
     const input = payload.value;
     if (typeof input === "number" && !Number.isNaN(input) && Number.isFinite(input)) {
       return payload;
@@ -2625,7 +2625,7 @@ var $ZodBoolean = /* @__PURE__ */ $constructor("$ZodBoolean", (inst, def) => {
     if (def.coerce)
       try {
         payload.value = Boolean(payload.value);
-      } catch (_) {}
+      } catch (_) { }
     const input = payload.value;
     if (typeof input === "boolean")
       return payload;
@@ -2645,7 +2645,7 @@ var $ZodBigInt = /* @__PURE__ */ $constructor("$ZodBigInt", (inst, def) => {
     if (def.coerce)
       try {
         payload.value = BigInt(payload.value);
-      } catch (_) {}
+      } catch (_) { }
     if (typeof payload.value === "bigint")
       return payload;
     payload.issues.push({
@@ -2753,7 +2753,7 @@ var $ZodDate = /* @__PURE__ */ $constructor("$ZodDate", (inst, def) => {
     if (def.coerce) {
       try {
         payload.value = new Date(payload.value);
-      } catch (_err) {}
+      } catch (_err) { }
     }
     const input = payload.value;
     const isDate = input instanceof Date;
@@ -2791,7 +2791,7 @@ var $ZodArray = /* @__PURE__ */ $constructor("$ZodArray", (inst, def) => {
     }
     payload.value = Array(input.length);
     const proms = [];
-    for (let i = 0;i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
       const item = input[i];
       const result = def.element._zod.run({
         value: item,
@@ -3169,7 +3169,7 @@ function mergeValues(a, b) {
       return { valid: false, mergeErrorPath: [] };
     }
     const newArray = [];
-    for (let index = 0;index < a.length; index++) {
+    for (let index = 0; index < a.length; index++) {
       const itemA = a[index];
       const itemB = b[index];
       const sharedValue = mergeValues(itemA, itemB);
@@ -3873,7 +3873,7 @@ var $ZodFunction = /* @__PURE__ */ $constructor("$ZodFunction", (inst, def) => {
     if (typeof func !== "function") {
       throw new Error("implement() must be called with a function");
     }
-    return function(...args) {
+    return function (...args) {
       const parsedArgs = inst._def.input ? parse(inst._def.input, args) : args;
       const result = Reflect.apply(func, this, parsedArgs);
       if (inst._def.output) {
@@ -3886,7 +3886,7 @@ var $ZodFunction = /* @__PURE__ */ $constructor("$ZodFunction", (inst, def) => {
     if (typeof func !== "function") {
       throw new Error("implementAsync() must be called with a function");
     }
-    return async function(...args) {
+    return async function (...args) {
       const parsedArgs = inst._def.input ? await parseAsync(inst._def.input, args) : args;
       const result = await Reflect.apply(func, this, parsedArgs);
       if (inst._def.output) {
@@ -10409,7 +10409,7 @@ class JSONSchemaGenerator {
     this.metadataRegistry = params?.metadata ?? globalRegistry;
     this.target = params?.target ?? "draft-2020-12";
     this.unrepresentable = params?.unrepresentable ?? "throw";
-    this.override = params?.override ?? (() => {});
+    this.override = params?.override ?? (() => { });
     this.io = params?.io ?? "output";
     this.seen = new Map;
   }
@@ -10740,7 +10740,7 @@ class JSONSchemaGenerator {
               if (val === undefined) {
                 if (this.unrepresentable === "throw") {
                   throw new Error("Literal `undefined` cannot be represented in JSON Schema");
-                } else {}
+                } else { }
               } else if (typeof val === "bigint") {
                 if (this.unrepresentable === "throw") {
                   throw new Error("BigInt literals cannot be represented in JSON Schema");
@@ -10751,7 +10751,7 @@ class JSONSchemaGenerator {
                 vals.push(val);
               }
             }
-            if (vals.length === 0) {} else if (vals.length === 1) {
+            if (vals.length === 0) { } else if (vals.length === 1) {
               const val = vals[0];
               json.type = val === null ? "null" : typeof val;
               if (this.target === "draft-4" || this.target === "openapi-3.0") {
@@ -10905,7 +10905,7 @@ class JSONSchemaGenerator {
             }
             break;
           }
-          default: {}
+          default: { }
         }
       }
     }
@@ -11040,7 +11040,7 @@ class JSONSchemaGenerator {
       result.$schema = "http://json-schema.org/draft-07/schema#";
     } else if (this.target === "draft-4") {
       result.$schema = "http://json-schema.org/draft-04/schema#";
-    } else if (this.target === "openapi-3.0") {} else {
+    } else if (this.target === "openapi-3.0") { } else {
       console.warn(`Invalid target: ${this.target}`);
     }
     if (params.external?.uri) {
@@ -11057,7 +11057,7 @@ class JSONSchemaGenerator {
         defs[seen.defId] = seen.def;
       }
     }
-    if (params.external) {} else {
+    if (params.external) { } else {
       if (Object.keys(defs).length > 0) {
         if (this.target === "draft-2020-12") {
           result.$defs = defs;
@@ -12296,7 +12296,7 @@ function getErrorMap() {
   return config().customError;
 }
 var ZodFirstPartyTypeKind;
-(function(ZodFirstPartyTypeKind2) {})(ZodFirstPartyTypeKind || (ZodFirstPartyTypeKind = {}));
+(function (ZodFirstPartyTypeKind2) { })(ZodFirstPartyTypeKind || (ZodFirstPartyTypeKind = {}));
 // node_modules/@opencode-ai/plugin/node_modules/zod/v4/classic/coerce.js
 var exports_coerce = {};
 __export(exports_coerce, {
@@ -12359,7 +12359,7 @@ function createJsonLineParser(onMessage) {
         continue;
       try {
         onMessage(JSON.parse(line));
-      } catch {}
+      } catch { }
     }
   };
 }
@@ -12384,7 +12384,7 @@ function getAgentSession(sessionId) {
 }
 function getAgentPortForSession(session) {
   let hash2 = 0;
-  for (let i = 0;i < session.length; i++) {
+  for (let i = 0; i < session.length; i++) {
     hash2 = (hash2 << 5) - hash2 + session.charCodeAt(i);
     hash2 |= 0;
   }
@@ -12458,7 +12458,7 @@ async function maybeStartAgentDaemon(connection, session) {
       }
     });
     child.unref();
-  } catch {}
+  } catch { }
 }
 function buildEvalScript(body) {
   return `(() => { ${body} })()`;
@@ -12687,12 +12687,12 @@ function createAgentBackend(sessionId) {
       agentSocket = await connectToAgent();
     } catch {
       await maybeStartAgentDaemon(connection, session);
-      for (let attempt = 0;attempt < 20; attempt++) {
+      for (let attempt = 0; attempt < 20; attempt++) {
         await sleep(100);
         try {
           agentSocket = await connectToAgent();
           break;
-        } catch {}
+        } catch { }
       }
     }
     if (!agentSocket || agentSocket.destroyed) {
@@ -13036,7 +13036,7 @@ function getPackageVersion() {
       cachedVersion = pkg.version;
       return cachedVersion;
     }
-  } catch {}
+  } catch { }
   cachedVersion = "unknown";
   return cachedVersion;
 }
@@ -13059,7 +13059,7 @@ function createJsonLineParser2(onMessage) {
         continue;
       try {
         onMessage(JSON.parse(line));
-      } catch {}
+      } catch { }
     }
   };
 }
@@ -13074,7 +13074,7 @@ function maybeStartBroker() {
   try {
     const child = spawn2(process.execPath, [brokerPath], { detached: true, stdio: "ignore" });
     child.unref();
-  } catch {}
+  } catch { }
 }
 async function connectToBroker() {
   return await new Promise((resolve, reject) => {
@@ -13100,16 +13100,16 @@ async function ensureBrokerSocket() {
     socket = await connectToBroker();
   } catch {
     maybeStartBroker();
-    for (let i = 0;i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
       await sleep2(100);
       try {
         socket = await connectToBroker();
         break;
-      } catch {}
+      } catch { }
     }
   }
   if (!socket || socket.destroyed) {
-    throw new Error("Could not connect to local broker. Run `npx @different-ai/opencode-browser install` and ensure the extension is loaded.");
+    throw new Error("Could not connect to local broker. Run `opencode-browser install` and ensure the extension is loaded.");
   }
   socket.setNoDelay(true);
   socket.on("data", createJsonLineParser2((msg) => {
