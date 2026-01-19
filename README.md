@@ -15,7 +15,7 @@ This version includes specific optimizations for Windows:
 
 ## Prerequisites
 
-- **Node.js**: v18 or higher (This plugin is pure JavaScript. **No Python required**).
+- **Node.js**: v18 or higher (This plugin is pure JavaScript.).
 - **Browser**: Google Chrome, Brave, Edge, or Arc.
 - **OpenCode CLI**: The main agent to run this plugin.
 
